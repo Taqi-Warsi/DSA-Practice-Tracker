@@ -45,6 +45,33 @@ void viewProblems() {
     file.close();
 }
 
+void searchByTopic() {
+    string topic, line;
+    bool found = false;
+
+    cin.ignore();
+
+    cout << "Enter topic to search: ";
+    getline(cin, topic);
+
+    ifstream file("problems.txt");
+
+    cout << "\n===== Search Results =====\n";
+
+    while (getline(file, line)) {
+        if (line.find(topic) != string::npos) {
+            cout << line << endl;
+            found = true;
+        }
+    }
+
+    file.close();
+
+    if (!found) {
+        cout << "No problems found for this topic.\n";
+    }
+}
+
 int main() {
     int choice;
 
@@ -52,7 +79,8 @@ int main() {
         cout << "\n===== DSA PRACTICE TRACKER =====\n";
         cout << "1. Add Problem\n";
         cout << "2. View Problems\n";
-        cout << "3. Exit\n";
+        cout << "3. Search by Topic\n";
+        cout << "4. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -66,6 +94,10 @@ int main() {
                 break;
 
             case 3:
+                searchByTopic();
+                break;
+
+            case 4:
                 cout << "Keep practicing DSA!\n";
                 break;
 
@@ -73,7 +105,7 @@ int main() {
                 cout << "Invalid choice!\n";
         }
 
-    } while (choice != 3);
+    } while (choice != 4);
 
     return 0;
 }
