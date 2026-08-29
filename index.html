@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Practice Tracker</title>
+</head>
+
+<body>
+
+    <h1>DSA Practice Tracker</h1>
+
+    <p>Track your Data Structures and Algorithms practice.</p>
+
+    <h2>Add Problem</h2>
+
+    <label>Topic:</label>
+    <input type="text" id="topic" placeholder="e.g. Array">
+    <br><br>
+
+    <label>Problem:</label>
+    <input type="text" id="problem" placeholder="e.g. Two Sum">
+    <br><br>
+
+    <label>Difficulty:</label>
+    <select id="difficulty">
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+    </select>
+    <br><br>
+
+    <label>Status:</label>
+    <select id="status">
+        <option>Solved</option>
+        <option>Pending</option>
+    </select>
+    <br><br>
+
+    <button onclick="addProblem()">Add Problem</button>
+
+    <h2>Your Problems</h2>
+
+    <ul id="problemList"></ul>
+
+    <script>
+        function addProblem() {
+
+            let topic = document.getElementById("topic").value;
+            let problem = document.getElementById("problem").value;
+            let difficulty = document.getElementById("difficulty").value;
+            let status = document.getElementById("status").value;
+
+            if (topic === "" || problem === "") {
+                alert("Please enter Topic and Problem!");
+                return;
+            }
+
+            let list = document.getElementById("problemList");
+
+            let item = document.createElement("li");
+
+            item.textContent =
+                topic + " | " +
+                problem + " | " +
+                difficulty + " | " +
+                status;
+
+            list.appendChild(item);
+
+            document.getElementById("topic").value = "";
+            document.getElementById("problem").value = "";
+        }
+    </script>
+
+</body>
+</html>
