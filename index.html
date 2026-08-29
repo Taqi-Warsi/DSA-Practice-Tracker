@@ -4,74 +4,195 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSA Practice Tracker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 25px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin-bottom: 8px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 7px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .problem {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #222;
+        }
+
+        .problem strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #777;
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>DSA Practice Tracker</h1>
+<div class="container">
 
-    <p>Track your Data Structures and Algorithms practice.</p>
+    <div class="header">
+        <h1>DSA Practice Tracker</h1>
+        <p>Track your Data Structures & Algorithms progress</p>
+    </div>
 
-    <h2>Add Problem</h2>
+    <div class="card">
 
-    <label>Topic:</label>
-    <input type="text" id="topic" placeholder="e.g. Array">
-    <br><br>
+        <h2>Add Problem</h2>
 
-    <label>Problem:</label>
-    <input type="text" id="problem" placeholder="e.g. Two Sum">
-    <br><br>
+        <div class="form-group">
+            <label>Topic</label>
+            <input type="text" id="topic" placeholder="e.g. Array">
+        </div>
 
-    <label>Difficulty:</label>
-    <select id="difficulty">
-        <option>Easy</option>
-        <option>Medium</option>
-        <option>Hard</option>
-    </select>
-    <br><br>
+        <div class="form-group">
+            <label>Problem Name</label>
+            <input type="text" id="problem" placeholder="e.g. Two Sum">
+        </div>
 
-    <label>Status:</label>
-    <select id="status">
-        <option>Solved</option>
-        <option>Pending</option>
-    </select>
-    <br><br>
+        <div class="form-group">
+            <label>Difficulty</label>
 
-    <button onclick="addProblem()">Add Problem</button>
+            <select id="difficulty">
+                <option>Easy</option>
+                <option>Medium</option>
+                <option>Hard</option>
+            </select>
+        </div>
 
-    <h2>Your Problems</h2>
+        <div class="form-group">
+            <label>Status</label>
 
-    <ul id="problemList"></ul>
+            <select id="status">
+                <option>Solved</option>
+                <option>Pending</option>
+            </select>
+        </div>
 
-    <script>
-        function addProblem() {
+        <button onclick="addProblem()">Add Problem</button>
 
-            let topic = document.getElementById("topic").value;
-            let problem = document.getElementById("problem").value;
-            let difficulty = document.getElementById("difficulty").value;
-            let status = document.getElementById("status").value;
+    </div>
 
-            if (topic === "" || problem === "") {
-                alert("Please enter Topic and Problem!");
-                return;
-            }
+    <div class="card">
 
-            let list = document.getElementById("problemList");
+        <h2>Your Problems</h2>
 
-            let item = document.createElement("li");
+        <div id="problemList">
+            <p class="empty">No problems added yet.</p>
+        </div>
 
-            item.textContent =
-                topic + " | " +
-                problem + " | " +
-                difficulty + " | " +
-                status;
+    </div>
 
-            list.appendChild(item);
+</div>
 
-            document.getElementById("topic").value = "";
-            document.getElementById("problem").value = "";
-        }
-    </script>
+<script>
+
+function addProblem() {
+
+    let topic = document.getElementById("topic").value.trim();
+    let problem = document.getElementById("problem").value.trim();
+    let difficulty = document.getElementById("difficulty").value;
+    let status = document.getElementById("status").value;
+
+    if (topic === "" || problem === "") {
+        alert("Please enter Topic and Problem Name!");
+        return;
+    }
+
+    let list = document.getElementById("problemList");
+
+    let emptyMessage = list.querySelector(".empty");
+
+    if (emptyMessage) {
+        emptyMessage.remove();
+    }
+
+    let problemBox = document.createElement("div");
+
+    problemBox.className = "problem";
+
+    problemBox.innerHTML = `
+        <strong>${problem}</strong>
+        Topic: ${topic}<br>
+        Difficulty: ${difficulty}<br>
+        Status: ${status}
+    `;
+
+    list.appendChild(problemBox);
+
+    document.getElementById("topic").value = "";
+    document.getElementById("problem").value = "";
+
+}
+
+</script>
 
 </body>
 </html>
